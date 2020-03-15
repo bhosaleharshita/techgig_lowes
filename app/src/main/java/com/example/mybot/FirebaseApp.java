@@ -1,5 +1,4 @@
 package com.example.mybot;
-
 import com.google.firebase.database.FirebaseDatabase;
 
 public class FirebaseApp extends android.app.Application {
