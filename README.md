@@ -9,11 +9,14 @@ LowesBot is a virtual personal shopping assistant that helps customer to find it
 - Android Support Repository
 
 
+
 ## Clone repository in Android Studio
 
-Run The application
+Run The application on Mobile Phone
 
 Provide Mircrophone permissions for enabling audio input.
+
+(Requires internet connection)
 
 
 
