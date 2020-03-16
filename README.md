@@ -9,5 +9,15 @@ LowesBot is a virtual personal shopping assistant that helps customer to find it
 - Android Support Repository
 
 
-## Clone repository
-Type > $ git clone https://github.com/rutujakanki/techgig_lowes.git  and Hit Enter
+## Clone repository in Android Studio
+
+Run The application
+
+Provide Mircrophone permissions for enabling audio input.
+
+
+
+
+
+
+
