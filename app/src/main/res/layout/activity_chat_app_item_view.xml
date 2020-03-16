@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:background="@drawable/rounded_rectangle_orange">
+        android:background="@drawable/right_background">
 
         <TextView
             android:id="@+id/chat_left_msg_text_view"

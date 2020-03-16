@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatAppActivity">
+    tools:context=".ChatAppActivity"
+    android:orientation="vertical"
+    android:layout_weight="1">
 
 <!--    <LinearLayout-->
 <!--        android:orientation="vertical"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content">-->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="0.9">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -19,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </ScrollView>
+    </LinearLayout>
 
 <!--        <LinearLayout-->
 <!--            android:orientation="horizontal"-->
@@ -44,51 +52,43 @@
 
 <!--    </LinearLayout>-->
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_weight="0.005"
+        android:weightSum="1">
 
 
 
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="10dp"
-            android:elevation="2dp"
-            android:background="@drawable/back_addtask"
-            android:layout_toStartOf="@+id/addBtn"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@+id/addBtn">
+
             <EditText
                 android:id="@+id/chat_input_msg"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minHeight="50dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="#fff"
                 android:hint="Type a Message"
-                android:textSize="18sp"/>
-        </RelativeLayout>
+                android:textSize="18sp"
+                android:layout_weight="0.95"/>
+
 
         <RelativeLayout
             android:id="@+id/addBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/back_fab"
+            android:background="@drawable/right_background"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="5dp"
             android:elevation="4dp"
             android:layout_centerInParent="true"
             android:layout_alignParentRight="true"
+            android:layout_weight="0.005"
             android:layout_marginRight="5dp">
 
             <ImageView
@@ -101,6 +101,6 @@
 
         </RelativeLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

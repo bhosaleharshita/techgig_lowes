@@ -66,7 +66,7 @@ public class ChatAppActivity extends AppCompatActivity {
 
 
         final LanguageConfig config2 = new LanguageConfig("ja", "b4ff2ed344f844a39579644d0754fa07");
-        //initService(config2);
+        //initService(config2);5
         final ai.api.android.AIConfiguration config = new ai.api.android.AIConfiguration("b4ff2ed344f844a39579644d0754fa07",
                 ai.api.android.AIConfiguration.SupportedLanguages.English,
                 AIConfiguration.RecognitionEngine.System);
