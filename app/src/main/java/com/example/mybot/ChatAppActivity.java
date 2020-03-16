@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +49,7 @@ import ai.api.model.Status;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class ChatAppActivity extends AppCompatActivity {
+public class ChatAppActivity extends AppCompatActivity implements AIListener {
 
     private Gson gson = GsonFactory.getGson();
     private AIDataService aiDataService;
@@ -56,6 +57,7 @@ public class ChatAppActivity extends AppCompatActivity {
     ChatAppMsgAdapter chatAppMsgAdapter;
     RecyclerView msgRecyclerView;
     public EditText msgInputText;
+    RelativeLayout audiobt;
 
    static String temp;
     final List<ChatAppMsgDTO> msgDtoList = new ArrayList<ChatAppMsgDTO>();
@@ -74,7 +76,7 @@ public class ChatAppActivity extends AppCompatActivity {
        final LinearLayout leftlayout=(LinearLayout) findViewById(R.id.chat_left_msg_layout);
       final TextView lefttext=(TextView) findViewById(R.id.chat_left_msg_text_view);
 
-
+    audiobt=findViewById(R.id.audiobt);
 
         final LanguageConfig config2 = new LanguageConfig("ja", "b4ff2ed344f844a39579644d0754fa07");
         //initService(config2);5
@@ -85,10 +87,12 @@ public class ChatAppActivity extends AppCompatActivity {
 
 
 
-
+      //  final AIConfiguration configa = new AIConfiguration("3e1fd339992c430c98f30c2ce64400f3",
+        //        AIConfiguration.SupportedLanguages.English,
+        //        AIConfiguration.RecognitionEngine.System);
 
         aiService = AIService.getService(this, (AIConfiguration) config);
-       // aiService.setListener(this);
+        aiService.setListener(this);
 
 
         // Get RecyclerView object.
@@ -214,11 +218,41 @@ public class ChatAppActivity extends AppCompatActivity {
         }
     }
 
-    private void onResult(final AIResponse response) {
+    public void onResult(final AIResponse response) {
         //runOnUiThread(new Runnable() {
 
         // @Override
         //public void run() {
+
+
+        Result result1 = response.getResult();
+
+        if (!TextUtils.isEmpty(result1.getResolvedQuery())) {
+            // Add a new sent message to the list.
+           // new AiTask().execute(result1.getResolvedQuery(), eventString, contextString);
+            String msgContent=result1.getResolvedQuery();
+
+            ChatAppMsgDTO msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_SENT, msgContent);
+            msgDtoList.add(msgDto);
+
+            int newMsgPosition = msgDtoList.size() - 1;
+
+            // Notify recycler view insert one new data.
+            chatAppMsgAdapter.notifyItemInserted(newMsgPosition);
+
+            // Scroll RecyclerView to the last message.
+            msgRecyclerView.scrollToPosition(newMsgPosition);
+
+            // Empty the input edit text box.
+            msgInputText.setText("");
+        }
+
+
+
+
+
+
+
         // Variables*/
 
         Log.i(TAG, "Speech------------------------------:" + response.toString());
@@ -290,7 +324,7 @@ public class ChatAppActivity extends AppCompatActivity {
         //});
     }
 
-    private void onError(final AIError error) {
+    public void onError(final AIError error) {
         //runOnUiThread(new Runnable() {
         // @Override
         //public void run() {
@@ -298,6 +332,41 @@ public class ChatAppActivity extends AppCompatActivity {
         Log.e(TAG, error.toString());
         //}
         //});
+    }
+
+    public void buttonClicked(View view) {
+        aiService.startListening();
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 101: {
+                if (grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                } else {
+                }
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void onAudioLevel(float level) {
+
+    }
+
+    @Override
+    public void onListeningStarted() {
+
+    }
+
+    @Override
+    public void onListeningCanceled() {
+
+    }
+
+    @Override
+    public void onListeningFinished() {
+
     }
 
 }
