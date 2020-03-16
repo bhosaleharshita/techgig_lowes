@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mybot.MainActivity">
+    tools:context=".ChatAppActivity">
 
+<!--    <LinearLayout-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="10dp"
-        android:paddingBottom="50dp"
-        android:clipToPadding="false"
-        android:background="#f4f6f7"
-        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chat_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
+<!--        <LinearLayout-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/chat_input_msg"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Input message."-->
+<!--                android:layout_weight="1"-->
+<!--                android:maxLines="2"/>-->
+
+<!--            <Button-->
+<!--                android:id="@+id/chat_send_msg"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Send"-->
+<!--                android:textAllCaps="false"/>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,7 +60,7 @@
             android:layout_marginRight="5dp"
             android:layout_toLeftOf="@+id/addBtn">
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/chat_input_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="50dp"
@@ -64,49 +83,17 @@
             android:layout_centerInParent="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dp">
+
             <ImageView
-                android:id="@+id/fab_img"
+                android:id="@+id/chat_send_msg"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_mic_white_24dp"
+                android:src="@drawable/ic_send_white_24dp"
                 android:tint="#fff"/>
+
         </RelativeLayout>
 
     </RelativeLayout>
 
 </RelativeLayout>
-
-
-    -->
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:paddingBottom="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
-
-        <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter msg"
-        android:onClick="buttonClicked"
-        />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/textView" />
-
-
-    </LinearLayout>
-
-
