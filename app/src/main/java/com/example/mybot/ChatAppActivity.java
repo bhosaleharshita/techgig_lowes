@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +55,12 @@ public class ChatAppActivity extends AppCompatActivity {
     AIService aiService;
     ChatAppMsgAdapter chatAppMsgAdapter;
     RecyclerView msgRecyclerView;
+    public EditText msgInputText;
+
+   static String temp;
     final List<ChatAppMsgDTO> msgDtoList = new ArrayList<ChatAppMsgDTO>();
+
+
 
 
     @Override
@@ -65,12 +71,22 @@ public class ChatAppActivity extends AppCompatActivity {
         // setTitle("dev2qa.com - Android Chat App Example");
 
 
+       final LinearLayout leftlayout=(LinearLayout) findViewById(R.id.chat_left_msg_layout);
+      final TextView lefttext=(TextView) findViewById(R.id.chat_left_msg_text_view);
+
+
+
         final LanguageConfig config2 = new LanguageConfig("ja", "b4ff2ed344f844a39579644d0754fa07");
         //initService(config2);5
-        final ai.api.android.AIConfiguration config = new ai.api.android.AIConfiguration("b4ff2ed344f844a39579644d0754fa07",
-                ai.api.android.AIConfiguration.SupportedLanguages.English,
+        final AIConfiguration config = new AIConfiguration("b4ff2ed344f844a39579644d0754fa07",
+                AIConfiguration.SupportedLanguages.English,
                 AIConfiguration.RecognitionEngine.System);
         aiDataService = new AIDataService(this, config);
+
+
+
+
+
         aiService = AIService.getService(this, (AIConfiguration) config);
        // aiService.setListener(this);
 
@@ -93,9 +109,10 @@ public class ChatAppActivity extends AppCompatActivity {
         // Set data adapter to RecyclerView.
         msgRecyclerView.setAdapter(chatAppMsgAdapter);
 
-        final EditText msgInputText = (EditText) findViewById(R.id.chat_input_msg);
+         msgInputText = (EditText) findViewById(R.id.chat_input_msg);
 
         ImageView msgSendButton = (ImageView) findViewById(R.id.chat_send_msg);
+
 
         msgSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +120,11 @@ public class ChatAppActivity extends AppCompatActivity {
                 final String eventString = null;
                 final String contextString = null;
                 String msgContent = msgInputText.getText().toString();
+                if(temp!=null)
+                {
+                    msgContent=temp;
+                    temp=null;
+                }
                 if (!TextUtils.isEmpty(msgContent)) {
                     // Add a new sent message to the list.
                     new AiTask().execute(msgContent, eventString, contextString);
@@ -124,9 +146,24 @@ public class ChatAppActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
+
     }
 
 
+
+
+    public static void confirmorder(String st)
+    {
+
+        Log.i("in confirm",st);
+        temp=st;
+
+
+
+    }
 
 
     public class AiTask extends AsyncTask<String, Void, AIResponse> {
@@ -207,10 +244,12 @@ public class ChatAppActivity extends AppCompatActivity {
                 ResponseMessage.ResponseSpeech responseMessage = (ResponseMessage.ResponseSpeech) result
                         .getFulfillment().getMessages().get(i);
                 Log.e(TAG, "responseMessage: " + responseMessage.getSpeech());
+                ChatAppMsgDTO msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_RECEIVED,responseMessage.getSpeech().get(0) );
+                msgDtoList.add(msgDto);
                 //Toast.makeText(getApplicationContext(), responseMessage.getSpeech().get(0), Toast.LENGTH_LONG).show();
-                s = s + "\n\n" + responseMessage.getSpeech().get(0);
+                //s = s + "\n\n" + responseMessage.getSpeech().get(0);
             }
-            speech = s;
+            //speech = s;
         }
 
         // Logging
